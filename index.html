@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <meta charset="UTF-8" />
+    <title>title</title>
+
+</head>
+<body>
+    <div class="left-side">
+        <h1>"Title to be Decided"</h1>
+        <p>"Tagline text"</p>
+
+        <audio id="coffee-audio" muted loop src="assets/audios/coffee.wav" type="audio/wav"></audio>
+        <audio id="fire-audio" muted loop src="assets/audios/fireplace.wav" type="audio/wav"></audio>
+        <audio id="jazz-audio" muted loop src="assets/audios/jazz.wav" type="audio/wav"></audio>
+        <audio id="paper-audio" muted loop src="assets/audios/paper.wav" type="audio/wav"></audio>
+        <audio id="rain-audio" muted loop src="assets/audios/rain.ogg" type="audio/ogg"></audio>
+
+        <div id="page">
+            
+            <!-- rain volume -->
+            <div class="volume-div" id="rain-volume-div">
+            <label for="rain-volume">Rain:</label>
+            <br>
+            <input type="range" id="rain-volume" class="slider" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <!-- writing volume -->
+            <div class="volume-div" id="writing-volume-div">
+            <label for="paper-volume">Paper:</label>
+            <br>
+            <input type="range" id="paper-volume" class="slider" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <!-- jazz volume -->
+            <div class="volume-div" id="jazz-volume-div">
+            <label for="jazz-volume">Jazz:</label>
+            <br>
+            <input type="range" id="jazz-volume" class="slider" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <!-- fire volume -->
+            <div class="volume-div" id="fire-volume-div">
+            <label for="fire-volume">Fireplace:</label>
+            <br>
+            <input type="range" id="fire-volume" class="slider" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <!-- cafe volume -->
+            <div class="volume-div" id="cafe-volume-div">
+            <label for="coffee-volume">Cafe Sounds:</label>
+            <br>
+            <input type="range" id="coffee-volume" class="slider" min="0" max="1" step="0.01" value="0">
+            </div>
+        </div>
+
+        <iframe id="spotify" data-testid="embed-iframe" style="border-radius:13px" src="https://open.spotify.com/embed/track/1hv5ICpYF2uXgcxvd2JBJ0?utm_source=generator" width="73%" height="150px" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+    </div>
+
+    <div id="right-side" class="right-side">
+        <div id="timer">
+            <input type="text" id="time" value="25:00"></input>
+            <div class="timer-buttons">
+                <button id="start">Start</button>
+                <button id="stop">Stop</button>
+                <br>
+            </div>
+        </div>
+        <div class="buttons" id="buttons">
+            <button id="timer-button">Timer</button>
+            <button>Quiz Me</button>
+            <button>Flashcards</button>
+        </div>
+    </div>
+</body>
+</html>
