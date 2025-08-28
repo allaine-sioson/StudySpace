@@ -63,14 +63,25 @@ let currentTimeSecs = 0;
 let currentTimeMins = 0;
 
 /**
+ * checks if the input is following the "mm:ss" format, including 60:00
+ * @param {string} input the user input
+ * @returns true if the format is followed, otherwise returns false
+ */
+function isValidTime(input) {
+  // checks if the input is valid
+  const regex = /^(60:00|([01]\d|[2-5][0-9]):[[0-5]\d)$/;
+  return regex.test(input);
+}
+
+/**
  * starts the countdown based on the user's given time
  */
 function startTimer() {
   timeGiven = time.value.split(":");
   
-  if (timeGiven.some(t => Number.isNaN(Number(t)))) {
+  if (!isValidTime(time.value)) {
     alert("Invalid Input.");
-    time.value = "25:00"
+    time.value = "00:00"
   } else {
     currentTimeMins = Number(timeGiven[0]);
     currentTimeSecs = Number(timeGiven[1]);
@@ -85,6 +96,7 @@ function startTimer() {
 function countdown() {
   if (currentTimeMins === 0 && currentTimeSecs === 0) {
     clearInterval(currentCountdown)
+    time.disabled = false;
   } else {
     if (currentTimeSecs === 0) {
       currentTimeSecs = 59;

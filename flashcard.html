@@ -1,0 +1,513 @@
+<!--Create flashcards (make them, delete them, show and hide, and cycle through them)-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study_flash_cards</title>
+<!--CSS-->
+<style>
+
+    body {
+        background-color: blanchedalmond;
+    }
+    
+/*flashcard creater*/
+    .flashcard_create{
+        width: 550px;
+        height: 300px;
+        background-color: white;
+        border: 2px solid black; 
+        border-radius: 0;
+        margin: 10px;
+        display: none;
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+         z-index: 1000;
+    }
+
+    .exit_flashcard{
+        display: none;
+        position: fixed;
+        top: 24.75%;
+        left:66.5%;
+        transform: translate(-50%, -50%);
+        height: 35px;
+        width: 35px;   
+        border-radius: 0;
+        background-color: rgb(255, 240, 240);
+        font-size: large;
+        font-weight: bold;
+         z-index: 1001;                                                                               
+    }
+        .exit_flashcard:hover{
+        background-color: rgb(171, 96, 96);
+        transition: background-color 0.2s ease-in-out;
+    }  
+    .question_flashcard{
+        display: none;
+        position: fixed;
+        top: 32.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 35px;
+        width: 250px;
+        border-radius: 0;
+        background-color: aliceblue;
+        font-family:monospace;
+        z-index: 1001;
+    }
+            .question_flashcard:hover{
+        background-color: rgb(157, 182, 205);
+        transition: background-color 0.2s ease-in-out;
+    }  
+    .answer_flashcard{
+        display: none;
+        position: fixed;
+        top: 45.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 35px;
+        width: 250px;
+        border-radius: 0;
+        background-color: aliceblue;
+        font-family:monospace;
+        z-index: 1001;
+    }
+              .answer_flashcard:hover{
+        background-color: rgb(157, 182, 205);
+        transition: background-color 0.2s ease-in-out;
+    }  
+    .saved{
+        display: none;
+        position: fixed;
+        top: 56.5%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        height: 35px;
+        width: 150px;  
+        border-radius: 0;
+        background-color: aliceblue; 
+        font-family:monospace;
+        font-size: large;
+        font-weight: bold;
+        z-index: 1001;
+    }
+    .saved:hover{
+        background-color: rgb(157, 182, 205);
+        transition: background-color 0.2s ease-in-out;
+    }
+    #crt_card{
+        position: absolute;
+        left: 550px;
+        width: 450px;
+        height: 45px;
+        border-radius: 0;
+        background-color: aliceblue;
+        font-family:monospace;
+        font-size: x-large;
+        font-weight: bold;
+        z-index: 1000;
+    }
+    #crt_card:hover{
+        background-color: rgb(157, 182, 205);
+        transition: background-color 0.2s ease-in-out;
+    }
+    /*flashcard functions*/
+    /*fonts*/
+    .flashcard{
+        font-family:monospace;
+        font-size: 15px;
+        color: black;
+    }
+     .flashcard-back{
+        font-family:monospace; 
+        font-size: 15px;
+        color: black;
+    }
+  .label {
+    font-size: 17.5px;   /* only the Q: and A: */
+    color: black; 
+    font-weight: bold;     
+    }
+    /*front of card*/
+    .flashcard{
+        width: 300px;
+        height: 175px;
+        background-color: white;
+        border: 2px solid black; 
+        border-radius: 0;
+        display: none;
+         z-index: 101;
+
+        overflow: auto;          
+        word-wrap: break-word;   
+        padding: 10px;           
+        box-sizing: border-box
+    }
+    /*back of card*/
+    .flashcard-back{
+      width: 300px;
+        height: 175px;
+        background-color: white;
+        border: 2px solid black; 
+        border-radius: 0;
+        display: none;
+         z-index: 10;
+
+        overflow: auto;         
+        word-wrap: break-word;   
+        padding: 10px;           
+        box-sizing: border-box
+    }
+    .card-buttons{
+
+        position:absolute;
+        left: 5px;
+        display:none;
+        border-radius: 0;
+        background-color: whitesmoke;
+    }
+    .flashcard:hover .card-buttons{
+        display:flex;
+    }
+    .flashcard-back:hover .card-buttons {
+        display: flex;
+    }
+    #flashcard-container{
+    display: flex;
+    flex-wrap: wrap;      
+    gap: 15px 55px;             
+    margin: 20px;
+    justify-content: flex-start; 
+    max-width: 100vw;      
+    overflow-x: hidden;    
+    padding-left: 60px;
+    padding-top: 60px;
+}
+.flashcard button,
+.flashcard-back button {
+  border: 1px solid black;
+  border-radius: 0;          /* rectangular */
+  background-color: aliceblue;
+  font-family: monospace;
+  font-size: 14px;
+  color: black;
+  padding: 5px 10px;
+  margin: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-weight: bold;
+}
+.flashcard button:hover,
+.flashcard-back button:hover {
+    background-color: rgb(157, 182, 205);
+}
+#qst_txt{
+    display: none;
+    z-index: 10001;
+    position: absolute;
+    left: 734.5px;
+    top: 165px;
+    font-family: monospace;
+    font-size: large;
+    font-weight: bold;
+}
+#ans_txt{
+    display: none;
+    z-index: 10001;
+    position: absolute;
+    left: 742.5px;
+    top: 265px;
+    font-family: monospace;
+    font-size: large;
+    font-weight: bold;
+}
+/*buttons in flashcards*/
+.flashcard,
+.flashcard-back {
+  position: relative;
+}
+
+.card-buttons {
+  position: static;    
+  display: none;
+}
+
+.delete-btn{
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  height: 27.5px;
+  width: 30px;
+  background-color: (255, 240, 240);
+}
+
+.edit-btn{
+  position: absolute;
+  top: 6px;
+  right: 46px;  
+  height: 27.5px;
+}
+
+.show-btn{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  width: 80%;
+  height: 23.5px;
+}
+
+.hide-btn{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  width: 80%;
+  height: 23.5px;
+}
+#q-limit{
+    position: absolute;
+    left: 725px;
+    top: 248px;
+    z-index: 100001;
+}
+#a-limit{
+    position: absolute;
+    left: 725px;
+    top: 342.5px;
+    z-index: 100001;
+}
+
+</style>
+<!--Html-->
+</head>
+<body>
+    <!--Create button-->
+    <button id="crt_card">Create new flashcard</button>
+    <div id="box" class="flashcard_create"></div>
+    <!--exit button-->
+    <button id="exit_card" class="exit_flashcard">X</button>
+    <!--input buttons-->
+    <!--Question-->
+    <input id="question" class="question_flashcard" maxlength="165">
+    <!--Answer-->
+    <input id="answer" class="answer_flashcard" maxlength="165">
+    <!--save button-->
+    <button id="save" class="saved">SAVE</button>
+    <!--Flash_Card-->
+    <div id="flashcard-container"></div>
+    <!--Q/A text-->
+    <p id="qst_txt">Question</p>
+    <p id="ans_txt">Answer</p>
+  <!-- Question -->
+    <p id="q-limit" style="color: red; display: none; font-family: monospace; font-size: 12px;">
+  Limit reached!
+    </p>
+
+<!-- Answer -->
+    <p id="a-limit" style="color: red; display: none; font-family: monospace; font-size: 12px;">
+  Limit reached!
+    </p>
+
+    <!--practice_cards-->
+
+<!--script-->
+<script>
+//To show flashcard creater
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("box").style.display = "block";
+});
+//To show exit button
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("exit_card").style.display = "block";
+});
+//To show question input
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("question").style.display = "block";
+});
+//To show answer input
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("answer").style.display = "block";
+});
+//To show save button
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("save").style.display = "block";
+    });
+//text
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("qst_txt").style.display = "block";
+});
+document.getElementById("crt_card").addEventListener("click", () => {
+    document.getElementById("ans_txt").style.display = "block";
+});
+//exit and keep button still there
+document.getElementById("exit_card").addEventListener("click", () => {
+
+document.getElementById("box").style.display = "none";
+document.getElementById("exit_card").style.display = "none";
+document.getElementById("question").style.display = "none";
+document.getElementById("answer").style.display = "none";
+document.getElementById("save").style.display = "none";
+document.getElementById("qst_txt").style.display = "none";
+document.getElementById("ans_txt").style.display = "none";
+document.getElementById("q-limit").style.display = "none";
+document.getElementById("a-limit").style.display = "none";
+});
+
+//save->display flashcard with info
+
+//inside save code
+let editingCard = null;
+let editingback = null;
+
+document.getElementById("save").addEventListener("click", () => {
+    const question = document.getElementById("question").value;
+    const answer = document.getElementById("answer").value;
+   
+//edit existing card
+if (editingCard && editingback) {
+    // Update front (question)
+    editingCard.querySelector("p").innerHTML = `<strong class="label">Q:</strong> ${question}`;
+    editingCard.dataset.answer = answer;
+
+    // Update back (answer)
+    editingback.querySelector("p").innerHTML = `<strong class="label">A:</strong> ${answer}`;
+    editingback.dataset.question = question;
+
+    // reset
+    editingCard = null;
+    editingback = null;
+}   else {
+    // Create new flashcard
+
+    //back
+    const back = document.createElement("div");
+    back.classList.add("flashcard-back");
+    back.style.display = "none";
+    back.innerHTML = `
+        <p><strong class="label">A:</strong> ${answer}</p>
+        <div class="card-buttons">
+            <button class="hide-btn">Hide</button>
+            <button class="delete-btn">X</button>
+            <button class="edit-btn">Edit</button>
+    </div>
+`;
+
+    //front
+    const newCard = document.createElement("div");
+    newCard.classList.add("flashcard");
+    newCard.innerHTML = `
+        <p><strong class="label">Q:</strong> ${question}</p>
+        <div class="card-buttons">
+            <button class="delete-btn">X</button>
+            <button class="edit-btn">Edit</button>
+            <button class="show-btn">Show</button>
+        </div>
+    `;
+
+
+    newCard.style.display = "block";
+    document.getElementById("flashcard-container").appendChild(back);
+    document.getElementById("flashcard-container").appendChild(newCard);
+
+      //delete flashcard(put where newCard exist)
+      //front delete
+newCard.querySelector(".delete-btn").addEventListener("click", () => {
+    const confirmed = confirm("Are you sure?");
+    if (confirmed){ newCard.remove();}
+    //back delete
+});
+back.querySelector(".delete-btn").addEventListener("click", () => {
+    const confirmed = confirm("Are you sure?");
+    if (confirmed){ back.remove();}
+});
+
+     // edit button front
+    newCard.querySelector(".edit-btn").addEventListener("click", () => {
+      document.getElementById("box").style.display = "block";
+      document.getElementById("exit_card").style.display = "block";
+      document.getElementById("question").style.display = "block";
+      document.getElementById("answer").style.display = "block";
+      document.getElementById("save").style.display = "block";
+
+      // put old values back in inputs
+      document.getElementById("question").value = question;
+      document.getElementById("answer").value = answer;
+      //edited becomes the new card
+      editingCard = newCard;
+      editingback = back;
+});
+
+    //edit button back
+    back.querySelector(".edit-btn").addEventListener("click", () => {
+      document.getElementById("box").style.display = "block";
+      document.getElementById("exit_card").style.display = "block";
+      document.getElementById("question").style.display = "block";
+      document.getElementById("answer").style.display = "block";
+      document.getElementById("save").style.display = "block";
+
+      // put old values back in inputs
+      document.getElementById("question").value = question;
+      document.getElementById("answer").value = answer;
+      //edited becomes the new card
+      editingCard = newCard;
+      editingback = back;
+});
+
+//show flashcard answer
+newCard.querySelector(".show-btn").addEventListener("click", () => {
+    newCard.style.display = "none";
+    back.style.display = "block";
+});
+
+//hide flashcard answer
+back.querySelector(".hide-btn").addEventListener("click", () => {
+    back.style.display = "none";
+    newCard.style.display = "block";
+});
+}
+
+//storage
+//after save->create flashcard box dissapears
+    document.getElementById("box").style.display = "none";
+    document.getElementById("exit_card").style.display = "none";
+    document.getElementById("question").style.display = "none";
+    document.getElementById("answer").style.display = "none";
+    document.getElementById("save").style.display = "none";
+    document.getElementById("qst_txt").style.display = "none";
+    document.getElementById("ans_txt").style.display = "none";
+        document.getElementById("q-limit").style.display = "none";
+    document.getElementById("a-limit").style.display = "none";
+// Store in localStorage as a JSON array of flashcards
+    let flashcards = JSON.parse(localStorage.getItem("flashcards")) || [];
+    flashcards.push({ question, answer });
+    localStorage.setItem("flashcards", JSON.stringify(flashcards));
+});
+
+//max text
+const MAX = 165;
+
+function checkLimit(input, warning) {
+  if (input.value.length >= MAX) {
+    warning.style.display = "block";
+  } else {
+    warning.style.display = "none";
+  }
+}
+
+const questionInput = document.getElementById("question");
+const answerInput = document.getElementById("answer");
+const qWarning = document.getElementById("q-limit");
+const aWarning = document.getElementById("a-limit");
+
+questionInput.addEventListener("input", () => checkLimit(questionInput, qWarning));
+answerInput.addEventListener("input", () => checkLimit(answerInput, aWarning));
+
+
+</script>
+</body>
+</html>
