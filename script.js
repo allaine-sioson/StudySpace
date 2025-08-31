@@ -1,5 +1,5 @@
-// audios
-const audios = [ 
+// slider audios
+const sliderAudios = [ 
   document.getElementById('rain-audio'),
   document.getElementById('coffee-audio'),
   document.getElementById('jazz-audio'),
@@ -15,6 +15,8 @@ const sliders = [
   document.getElementById('paper-volume')
 ]
 
+var alertSound = new Audio('assets/audios/bloop.wav');
+
 // the right section of the website
 const rightSide = document.getElementById("right-side");
 const options = document.getElementById("buttons");
@@ -24,8 +26,8 @@ const timerSection = document.getElementById("timer");
 const startTimerButton = document.getElementById("start");
 const stopTimerButton = document.getElementById("stop");
 
-// mute all audios at the start
-for (audio of audios) {
+// mute all slider audios at the start
+for (audio of sliderAudios) {
   audio.volume = 0;
 }
 
@@ -35,7 +37,7 @@ for (audio of audios) {
 function playAudio() {
   console.log("playing");
 
-  for (audio of audios) {
+  for (audio of sliderAudios) {
     audio.muted = false;
     audio.play();
   }
@@ -52,7 +54,7 @@ window.addEventListener('keydown', playAudio);
 // audio volume adjusts based on slider amount
 for (let i = 0; i < sliders.length; i++ ) {
   sliders[i].addEventListener('input', function() {
-    audios[i].volume = sliders[i].value;
+    sliderAudios[i].volume = sliders[i].value;
   });
 }
 
@@ -97,6 +99,8 @@ function startTimer() {
 function countdown() {
   if (currentTimeMins === 0 && currentTimeSecs === 0) {
     clearInterval(currentCountdown)
+    alertSound.play();
+    alert("Timer Done!")
     time.disabled = false;
   } else {
     if (currentTimeSecs === 0) {
