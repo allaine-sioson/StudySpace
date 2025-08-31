@@ -78,15 +78,16 @@ function isValidTime(input) {
  */
 function startTimer() {
   timeGiven = time.value.split(":");
-  
-  if (!isValidTime(time.value)) {
-    alert("Invalid Input.");
-    time.value = "00:00"
-  } else {
-    currentTimeMins = Number(timeGiven[0]);
-    currentTimeSecs = Number(timeGiven[1]);
-    time.disabled = true;
-    currentCountdown = setInterval(countdown, 1000);
+  if (time.disabled == false) {
+    if (!isValidTime(time.value)) {
+      alert("Invalid Input.");
+      time.value = "00:00"
+    } else {
+      currentTimeMins = Number(timeGiven[0]);
+      currentTimeSecs = Number(timeGiven[1]);
+      time.disabled = true;
+      currentCountdown = setInterval(countdown, 1000);
+    }
   }
 }
 
@@ -122,8 +123,10 @@ function showTimer() {
  * stops the timer
  */
 function stopTimer() {
-  clearInterval(currentCountdown)
-  time.textContent = "25:00";
+  if (time.disabled == true) {
+    clearInterval(currentCountdown)
+    time.disabled = false;
+  }
 }
 
 // button event listeners
