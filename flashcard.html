@@ -290,39 +290,10 @@
 document.getElementById("crt_card").addEventListener("click", () => {
     document.getElementById("box").style.display = "grid";
 });
-//To show exit button
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("exit_card").style.display = "block";
-});
-//To show question input
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("question").style.display = "block";
-});
-//To show answer input
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("answer").style.display = "block";
-});
-//To show save button
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("save").style.display = "block";
-    });
-//text
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("qst_txt").style.display = "block";
-});
-document.getElementById("crt_card").addEventListener("click", () => {
-    document.getElementById("ans_txt").style.display = "block";
-});
 //exit and keep button still there
 document.getElementById("exit_card").addEventListener("click", () => {
 
 document.getElementById("box").style.display = "none";
-document.getElementById("exit_card").style.display = "none";
-document.getElementById("question").style.display = "none";
-document.getElementById("answer").style.display = "none";
-document.getElementById("save").style.display = "none";
-document.getElementById("qst_txt").style.display = "none";
-document.getElementById("ans_txt").style.display = "none";
 document.getElementById("q-limit").style.display = "none";
 document.getElementById("a-limit").style.display = "none";
 });
@@ -397,11 +368,7 @@ back.querySelector(".delete-btn").addEventListener("click", () => {
 
      // edit button front
     newCard.querySelector(".edit-btn").addEventListener("click", () => {
-      document.getElementById("box").style.display = "block";
-      document.getElementById("exit_card").style.display = "block";
-      document.getElementById("question").style.display = "block";
-      document.getElementById("answer").style.display = "block";
-      document.getElementById("save").style.display = "block";
+      document.getElementById("box").style.display = "grid";
 
       // put old values back in inputs
       document.getElementById("question").value = question;
@@ -413,11 +380,7 @@ back.querySelector(".delete-btn").addEventListener("click", () => {
 
     //edit button back
     back.querySelector(".edit-btn").addEventListener("click", () => {
-      document.getElementById("box").style.display = "block";
-      document.getElementById("exit_card").style.display = "block";
-      document.getElementById("question").style.display = "block";
-      document.getElementById("answer").style.display = "block";
-      document.getElementById("save").style.display = "block";
+      document.getElementById("box").style.display = "grid";
 
       // put old values back in inputs
       document.getElementById("question").value = question;
@@ -443,12 +406,6 @@ back.querySelector(".hide-btn").addEventListener("click", () => {
 //storage
 //after save->create flashcard box dissapears
     document.getElementById("box").style.display = "none";
-    document.getElementById("exit_card").style.display = "none";
-    document.getElementById("question").style.display = "none";
-    document.getElementById("answer").style.display = "none";
-    document.getElementById("save").style.display = "none";
-    document.getElementById("qst_txt").style.display = "none";
-    document.getElementById("ans_txt").style.display = "none";
         document.getElementById("q-limit").style.display = "none";
     document.getElementById("a-limit").style.display = "none";
 // Store in localStorage as a JSON array of flashcards

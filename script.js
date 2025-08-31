@@ -36,13 +36,10 @@ for (audio of sliderAudios) {
  */
 function playAudio() {
   console.log("playing");
-
   for (audio of sliderAudios) {
     audio.muted = false;
     audio.play();
   }
-
-  
   window.removeEventListener('click', playAudio);
   window.removeEventListener('keydown', playAudio);
 }
@@ -137,5 +134,3 @@ function stopTimer() {
 timerButton.addEventListener('click', showTimer);
 startTimerButton.addEventListener('click', startTimer);
 stopTimerButton.addEventListener('click', stopTimer);
-
-
